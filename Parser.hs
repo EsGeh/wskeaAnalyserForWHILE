@@ -111,12 +111,15 @@ parseOutput = do
 	case input of
 		(CmdToken OutputCmd):xs -> do
 			setInput xs
-			try $ do
-				t <- parseT
-				return $ OutputTerm t
-			<|> do
-				b <- parseB
-				return $ OutputBT b
+			choice
+			 [
+				try $ do
+					t <- parseT
+					return $ OutputTerm t,
+				do
+					b <- parseB
+					return $ OutputBT b
+			 ]
 		_ -> fail "expected 'output'"
 
 
