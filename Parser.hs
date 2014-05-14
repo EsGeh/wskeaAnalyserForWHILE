@@ -67,10 +67,20 @@ parseSequenceCommand = do
 
 -- T -> Z | I | <read> | T OP T
 parseT :: ParseTokStream () Term
-parseT = chainl1 -- chainl1 solves the left recursion problem:
+parseT = greedyOp
 	parsePrimitiveTerm
 	parseOpTerm
 
+greedyOp :: ParseTokStream () Term -> ParseTokStream () (Term -> Term -> Term) -> ParseTokStream () Term
+greedyOp prim conc = do
+	t1 <- prim
+	maybeOp <- optionMaybe (conc)
+	case maybeOp of
+		Nothing -> return $ t1
+		Just op -> do
+			t2 <- greedyOp prim conc
+			return $ op t1 t2
+			
 -- try to parse Z | I | <read>
 parsePrimitiveTerm :: ParseTokStream () Term
 parsePrimitiveTerm = do
