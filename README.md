@@ -93,9 +93,9 @@ So, we have to install them first:
 
 execute the program by typing
 
-	./wskeaAnalyserForWHILE
+	./wskeaAnalyserForWHILE [ <program> ]
 
-you will be asked to type a WHILE program
+if no <program> is given, you will be asked to type a WHILE program
 
 after that, enter a list of user inputs (just type '[]', if empty)
 
@@ -103,4 +103,4 @@ after that, enter a list of user inputs (just type '[]', if empty)
 
 if 4>3 then output true else output false
 
-x := read ; if x > 0 then output x mod 2 else output 0-x mod 2
+x := read ; if x >= 0 then output 1 else output 0 

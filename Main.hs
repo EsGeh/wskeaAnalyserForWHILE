@@ -8,11 +8,18 @@ import ShowZ
 
 import Control.Monad
 import Data.Maybe
+import System.Environment
 
 main = do
-	putStrLn "please enter a WHILE-Program:"
-	putStr "> "
-	p <- getLine
+{-
+-}
+	args <- getArgs
+	p <- case args of
+		[] -> do
+			putStrLn "please enter a WHILE-Program:"
+			putStr "> "
+			getLine
+		(x:xs) -> return x
 	analyse p
 
 

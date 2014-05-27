@@ -25,6 +25,7 @@ delta z = case z of
 	-- read
 	(w, s, KTerm ReadTerm : k, input, output) -> 
 		case input of
+			Nothing -> Nothing
 			((EZahl i): inputRest) -> Just $ (ZahlWert i : w, s, k, inputRest, output)
 	-- t op t
 	(w, s, KTerm (OPTerm t1 op t2) :k, input, output) -> 
