@@ -1,5 +1,9 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
-module WSKEA where
+module WSKEA(
+	z0,	-- 3.
+	delta,	-- 2.
+	showZ,
+) where
 
 --import Parser
 
@@ -8,7 +12,7 @@ import Data
 
 --iterate delta z0
 
--- 2. Def. der Zustandsüberführungsfunktion delta
+-- | 2. Def. der Zustandsüberführungsfunktion delta
 delta :: Z -> Maybe Z
 delta z = case z of
 	-- TERM:
@@ -89,7 +93,7 @@ delta z = case z of
 	--(w, s, k, input, output) ->
 	_ -> Nothing
 		
--- 3. Def. eines Anfangszustandes z0
+-- |3. Def. eines Anfangszustandes z0
 z0 :: AST -> [E] -> Z
 z0 ast input = (
 	[],		-- W ValueStack
@@ -98,6 +102,7 @@ z0 ast input = (
 	input,		-- E user input
 	[])		-- A user output
 
+-- |schöne darstellung eines Zustandes
 showZ :: Z -> String
 showZ (w, s, k, i, o) = unlines $ [
 	printSubList "w:" w,
@@ -118,7 +123,3 @@ instance Show S where
 	show s = show $ asList s
 
 -- 4. semantik: 
-{-
-semantik :: AST -> E -> Maybe A
-semantik speicher eingabe = case delta 
-l-}

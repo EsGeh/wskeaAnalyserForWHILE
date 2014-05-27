@@ -1,8 +1,10 @@
+-- | this module contains an interactive program that can be used to explore the semantics of a WHILE program entered into the console
 module Main where
 
 import Data
 import Parser
 import WSKEA
+import ShowZ
 
 import Control.Monad
 import Data.Maybe
@@ -41,6 +43,7 @@ analyseAST ast = do
 	exploreListZ listZ
 	return ()
 
+exploreListZ :: [Maybe Z] -> IO ()
 exploreListZ listZ = do
 	putStrLn $ unlines $ map showMaybeZ $ [0..] `zip` (takeWhile isJust $ listZ)
 	where
@@ -48,15 +51,8 @@ exploreListZ listZ = do
 			"delta^" ++ show index ++ ":\n" ++
 			case maybeZ of
 				Nothing -> show (Nothing :: Maybe Z) ++ "\n"
-				Just z -> showZ z
+				Just z -> show z
 			++ "-----------------------------------------"
-			
-
-{-
-interactWithListZ listZ = sequence_ $ do
-	input <- getChar
-	return ()
--}
 			
 
 astTest = case astFromString "if 3>2 then skip else skip" of
