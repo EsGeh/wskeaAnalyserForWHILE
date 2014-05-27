@@ -31,7 +31,7 @@ analyse p = do
 printAST :: AST -> IO ()
 printAST ast = do
 	putStrLn "AST:"
-	putStrLn $ showAST ast
+	putStrLn $ formattedShowAST ast
 
 analyseAST :: AST -> IO ()
 analyseAST ast = do
@@ -51,7 +51,7 @@ exploreListZ listZ = do
 			"delta^" ++ show index ++ ":\n" ++
 			case maybeZ of
 				Nothing -> show (Nothing :: Maybe Z) ++ "\n"
-				Just z -> showZ z
+				Just z -> formattedShowZ z
 			++ "-----------------------------------------"
 			
 

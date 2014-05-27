@@ -1,8 +1,8 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
 {- |some functions for showing Z, or ASTs in a formatted way -}
 module ShowZ(
-	showZ,
-	showAST,
+	formattedShowZ,
+	formattedShowAST,
 ) where
 
 import Data
@@ -12,8 +12,8 @@ import SGData(Tree, Node, node, leaf) -- exportiert einige Funktionen, um mit BÃ
 
 
 -- |schÃ¶ne darstellung eines Zustandes
-showZ :: Z -> String
-showZ (w, s, k, i, o) = unlines $ [
+formattedShowZ :: Z -> String
+formattedShowZ (w, s, k, i, o) = unlines $ [
 	printSubList "w:" w,
 	printSubList "s:" (asList s),
 	printSubList "k:" k,
@@ -31,7 +31,7 @@ asList s = ['a'..'z'] `zip` (filter (/=Nothing) $ map (s . return) ['a'..'z'])
 instance Show S where
 	show s = show $ asList s
 
-showAST = show . untypedFromCOM
+formattedShowAST = show . untypedFromCOM
 
 
 untypedFromCOM :: COM -> Node String
