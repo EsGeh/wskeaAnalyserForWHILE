@@ -88,7 +88,24 @@ delta z = case z of
 	-- BT
 	(w, s, (KBt (BoolBT b)) : k, input, output) ->
 		Just $ (BoolWert b : w, s, k, input, output)
-	--(w, s, k, input, output) ->
+	(w, s, (KBt (BOpBT t1 op t2)): k, input, output) ->
+		Just $ (w, s, KTerm t1 : KTerm t2 : KBop op : k, input, output)
+	(ZahlWert n2 : ZahlWert n1 : w, s, KBop op : k, input, output) -> 
+		Just $ (w, s, KBt (BoolBT b) : k, input, output) 
+			where b = case op of
+				LessThan -> n1 < n2
+				GreaterThan -> n1 > n2
+				Equal -> n1 == n2
+				LessOrEqual -> n1 <= n2
+				GreaterOrEqual -> n1 >= n2
+				NotEqual -> n1 /= n2
+	(w, s, (KBt (UnaryOpBT unaryBop bt)): k, input, output) ->
+		Just $ (w, s, KBt bt : KUnaryBop unaryBop : k, input, output)
+	(BoolWert b : w, s, KUnaryBop unaryBop : k, input, output) ->
+		Just $ (BoolWert b' : w, s, k, input, output)
+			where b' = case unaryBop of
+				Not -> not b
+	-- if no rule matches:
 	_ -> Nothing
 		
 -- |3. Def. eines Anfangszustandes z0

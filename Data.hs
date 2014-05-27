@@ -16,6 +16,7 @@ data K = KTerm Term 	-- T -> ...
 	| KCom COM 	-- C -> ...
 	| KOp OP	-- Add | Sub | Mul | Div | Mod
 	| KBop BOP 	-- LessThan | GreaterThan | Equal | LessOrEqual | GreaterOrEqual | NotEqual
+	| KUnaryBop UnaryBOP
 	| KSym KontrollSym -- While | Assign | If 
 	| KId Id
 	deriving( Show )
