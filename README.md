@@ -95,6 +95,12 @@ execute the program by typing
 
 	./wskeaAnalyserForWHILE
 
-the program will ask you to enter a WHILE program
+you will be asked to type a WHILE program
 
 after that, enter a list of user inputs (just type '[]', if empty)
+
+### example programs
+
+if 4>3 then output true else output false
+
+x := read ; if x > 0 then output x mod 2 else output 0-x mod 2
