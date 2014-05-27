@@ -1,5 +1,7 @@
 module Data where
 
+import SGData
+
 
 -- 1. Def. des Zustandsraumes Z:
 type Z = ([W], S, [K], [E], [A])
@@ -16,8 +18,10 @@ data K = KTerm Term 	-- T -> ...
 	| KBop BOP 	-- LessThan | GreaterThan | Equal | LessOrEqual | GreaterOrEqual | NotEqual
 	| KSym KontrollSym -- While | Assign | If 
 	| KId Id
+	deriving( Show )
 
-type E = Zahl
+data E = EZahl Zahl | EBool Bool
+	deriving( Show, Read )
 
 data A = AZahl Zahl | ABool Bool
 	deriving( Show )
@@ -52,4 +56,35 @@ data COM = SkipCom | AssignCom Id Term | SeqCom COM COM
 	deriving( Show )
 
 
-data KontrollSym = While | Assign | If
+data KontrollSym = While | Assign | If | Output
+	deriving( Show )
+
+{-
+data UntypedEntry = UntypedEntry {
+	entryType :: String }
+-}
+
+
+untypedFromCOM :: COM -> Node String
+untypedFromCOM com = case com of
+	SkipCom -> leaf "skip"
+	AssignCom id t -> node ":=" $ [ leaf id, (untypedFromTERM t)]
+	SeqCom c1 c2 -> node ";" $ [ untypedFromCOM c1, untypedFromCOM c2 ]
+	IfCom b c1 c2 -> node "if" $ [ untypedFromB b, untypedFromCOM c1, untypedFromCOM c2 ]
+	WhileCom b c -> node "while" $ [ untypedFromB b, untypedFromCOM c ]
+	OutputTerm t -> node "outputT" $ [ untypedFromTERM t ]
+	OutputBT t -> node "outputB" $ [ untypedFromB t ]
+
+untypedFromTERM :: Term -> Node String
+untypedFromTERM t = case t of
+	OPTerm t1 op t2 -> node (show op) $ [ untypedFromTERM t1, untypedFromTERM t2 ]
+	ZahlTerm z -> leaf $ show z
+	IdTerm id -> leaf $ id
+	ReadTerm -> leaf "readT"
+
+untypedFromB :: BT -> Node String
+untypedFromB b = case b of
+	BoolBT b -> leaf $ show b
+	UnaryOpBT unary b -> node (show unary) $ [ untypedFromB b ]
+	ReadBT -> leaf "readB"
+	BOpBT t1 bop t2 -> node (show bop) [ untypedFromTERM t1, untypedFromTERM t2 ]
