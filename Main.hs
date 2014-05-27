@@ -25,13 +25,13 @@ analyse p = do
 			print $  error
 		Right ast -> do
 			putStrLn "analysation:--------------------------------------"
-			showAST ast
+			printAST ast
 			analyseAST ast
 
-showAST :: AST -> IO ()
-showAST ast = do
+printAST :: AST -> IO ()
+printAST ast = do
 	putStrLn "AST:"
-	print $ untypedFromCOM ast
+	putStrLn $ showAST ast
 
 analyseAST :: AST -> IO ()
 analyseAST ast = do
