@@ -44,13 +44,16 @@ The language WHILE has the following syntax:
 
 Notice that the grammar includes left-recursion in the productions marked with (*)
 
-## Prerequisits
+
+## Installation
+
+### Prerequisits
 
 1. make shure that you have cabal-install (it usually is installed as a part of the "haskell platform").
 
 2. make shure that you have git installed
 
-## Installation
+### Dependencies
 
 wskeaAnalyserForWHILE has the following dependencies:
 	sgCard-1.3.*
@@ -92,6 +95,6 @@ execute the program by typing
 
 	./wskeaAnalyserForWHILE
 
-the program will ask you to enter a WHILE program:
+the program will ask you to enter a WHILE program
 
 after that, enter a list of user inputs (just type '[]', if empty)
