@@ -51,7 +51,7 @@ exploreListZ listZ = do
 			"delta^" ++ show index ++ ":\n" ++
 			case maybeZ of
 				Nothing -> show (Nothing :: Maybe Z) ++ "\n"
-				Just z -> show z
+				Just z -> showZ z
 			++ "-----------------------------------------"
 			
 

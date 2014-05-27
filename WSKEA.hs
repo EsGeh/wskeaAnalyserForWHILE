@@ -1,8 +1,6 @@
-{-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
 module WSKEA(
 	z0,	-- 3.
 	delta,	-- 2.
-	showZ,
 ) where
 
 --import Parser
@@ -102,24 +100,5 @@ z0 ast input = (
 	input,		-- E user input
 	[])		-- A user output
 
--- |schöne darstellung eines Zustandes
-showZ :: Z -> String
-showZ (w, s, k, i, o) = unlines $ [
-	printSubList "w:" w,
-	printSubList "s:" (asList s),
-	printSubList "k:" k,
-	printSubList "i:" i,
-	printSubList "o:" o]
-
-printSubList tag l = 
-	tag ++
-		case l of
-			[] -> ""
-			_ -> "\n" ++ unlines (map (\x -> "    " ++ show x) l)
-
-asList s = ['a'..'z'] `zip` (filter (/=Nothing) $ map (s . return) ['a'..'z'])
-
-instance Show S where
-	show s = show $ asList s
 
 -- 4. semantik: 

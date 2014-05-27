@@ -1,12 +1,38 @@
+{-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
 {- |offers a way to convert syntax trees to less strict typed trees (as defined in SGData)
 -- converting a syntax tree to an untyped one gives you a nice way of showing it:
 -- example (be 'ast' a valid COM expression)
 --	show (untypedFromCOM ast) -}
-module ShowZ where
+module ShowZ(
+	showZ,
+	untypedFromCOM, untypedFromTERM, untypedFromB
+) where
 
 import Data
 
 import SGData(Tree, Node, node, leaf) -- exportiert einige Funktionen, um mit Bäumen zu arbeiten
+
+
+
+-- |schöne darstellung eines Zustandes
+showZ :: Z -> String
+showZ (w, s, k, i, o) = unlines $ [
+	printSubList "w:" w,
+	printSubList "s:" (asList s),
+	printSubList "k:" k,
+	printSubList "i:" i,
+	printSubList "o:" o]
+
+printSubList tag l = 
+	tag ++
+		case l of
+			[] -> ""
+			_ -> "\n" ++ unlines (map (\x -> "    " ++ show x) l)
+
+asList s = ['a'..'z'] `zip` (filter (/=Nothing) $ map (s . return) ['a'..'z'])
+
+instance Show S where
+	show s = show $ asList s
 
 
 untypedFromCOM :: COM -> Node String
