@@ -65,7 +65,7 @@ So, we have to install them first:
 
 	git clone --branch release https://github.com/EsGeh/sgCard.git
 	cd sgCard
-	git checkout 1.3.0.0
+	git checkout 1.3.0.1
 	cabal configure
 	cabal build
 	cabal install
@@ -75,7 +75,7 @@ So, we have to install them first:
 
 	git clone --branch release https://github.com/EsGeh/sgData.git
 	cd sgData
-	git checkout 1.1.0.0
+	git checkout 1.1.0.1
 	cabal configure
 	cabal build
 	cabal install
